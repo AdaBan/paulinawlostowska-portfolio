@@ -1,0 +1,13 @@
+@forward "reset.scss";
+
+@font-face {
+  font-family: "Di Grotesk";
+  src: url("/fonts/DiGrotesk/DiGrotesk-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Di Grotesk", sans-serif;
+}
