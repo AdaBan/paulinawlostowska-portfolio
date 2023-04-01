@@ -1,0 +1,7 @@
+$z-indices: (
+  modal: 1,
+);
+
+@function z-index($name) {
+  @return map-get($z-indices, $name);
+}

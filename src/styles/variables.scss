@@ -1,1 +1,30 @@
+@import 'function/px-to-rem';
+@import 'function/grid-gap';
+@import 'function/spacing';
+@import 'function/z-index';
+
+@import 'mixin/absolute-cover';
+@import 'mixin/media-query';
+
+
 $black: #000;
+$accent-color: #FF00D6;
+
+$base-spacing: .25rem;
+
+$container-gutter: 2.1vw;
+
+$breakpoints: (
+    'lg': '(min-width: #{px-to-rem(1024px)})',
+    'md': '(min-width: #{px-to-rem(768px)})',
+    'sm': '(min-width: #{px-to-rem(425px)})',
+    'tablet-only': '(min-width: #{px-to-rem(768px)}) and (max-width: #{px-to-rem(1023px)})',
+    'mobile-and-tablet-only': '(max-width: #{px-to-rem(1023px)})',
+);
+
+$grid-gap: (
+    'base': spacing(2),
+    'md': spacing(3),
+    'lg': spacing(4),
+);
+

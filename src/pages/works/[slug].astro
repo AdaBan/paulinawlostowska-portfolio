@@ -1,0 +1,86 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/global.scss";
+
+interface SingleWork {
+  name: string;
+  title: string;
+  color: string;
+  thumbnail: any;
+  image: any;
+}
+
+interface SingleWorkObject {
+  fields: SingleWork;
+}
+
+interface WorksPage {
+  name: string;
+  works: SingleWorkObject[];
+}
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<WorksPage>({
+    content_type: "worksPage",
+    limit: 1,
+  });
+
+  const works: SingleWork[] = entries.items[0].fields.works.map(
+    (work: SingleWorkObject) => work.fields
+  );
+
+  return works.map((work, index) => {
+    return {
+      params: {
+        slug: index + 1,
+      },
+      props: {
+        work,
+        workIndex: index + 1,
+        worksNumber: works.length
+      },
+    };
+  });
+}
+
+const { work, workIndex, worksNumber } = Astro.props;
+---
+
+<Layout title="Works - Paulina Włostowska">
+  <main class="container">
+    <div class="work">
+      <img
+        class="work__image"
+        src={`${work.image.fields.file.url}?w=1200&q=72`}
+      />
+      <div class="work__caption">
+        <p>{ workIndex } / { worksNumber }</p>
+        
+        { workIndex > 1  &&  <a href={ `/works/${workIndex - 1}`}>Prev / </a>}
+        { workIndex < worksNumber && <a href={ `/works/${workIndex + 1}`}>Next</a> }
+        <figcaption>{work.title}</figcaption>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .work {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 3vw;
+    align-items: flex-end;
+
+    &__image {
+      height: calc(100vh - 11vw);
+      width: 100%;
+      object-fit: contain;
+      object-position: left bottom;
+    }
+
+    &__caption {
+      font-size: max(14px, 1vw);
+    }
+  }
+</style>

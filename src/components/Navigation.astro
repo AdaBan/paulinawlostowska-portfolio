@@ -1,24 +1,52 @@
 ---
 ---
 
-<nav>
-    <a href="/">
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar__inner">
+      <a class="navbar__logo" href="/works/">
         <h1>Paulina Włostowska</h1>
-    </a>
-    <ul>
-        <li>
-            <a href="/works/">
-                Works
-            </a>
+      </a>
+      <ul class="navbar__links">
+        <li class="navbar__link-wrapper">
+          <a class="navbar__link -is-active" href="/works/"> Works</a>
         </li>
-        <li>
-            <a href="/about/">
-                About
-            </a>
+        <li class="navbar__link-wrapper">
+          <a class="navbar__link" href="/works/">About</a>
         </li>
-    </ul>
-
+      </ul>
+    </div>
+  </div>
 </nav>
-<style lang="scss">
 
+<style lang="scss">
+  .navbar {
+    font-size: 3vw;
+    padding: 0.5em 0 1em;
+
+    &__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__links {
+      display: flex;
+      gap: 1.5em;
+    }
+
+    &__link {
+      border-bottom: .1em solid transparent;
+
+      &.-is-active {
+        border-color: currentColor;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: $accent-color;
+        }
+      }
+    }
+  }
 </style>
