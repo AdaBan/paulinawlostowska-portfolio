@@ -38,11 +38,11 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
           <li class="work" style={work.color ? { color: work.color } : null}>
             <a class="work__link" href={`/works/${index + 1}`}>
               <img
-                src={
+                src={`${
                   work.thumbnail
-                    ? `${work.thumbnail.fields.file.url}?w=400&q=72`
-                    : `${work.image.fields.file.url}?w=400&q=72`
-                }
+                    ? work.thumbnail.fields.file.url
+                    : work.image.fields.file.url
+                }?w=400&q=72`}
               />
             </a>
           </li>
