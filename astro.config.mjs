@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://adaban.github.io",
+  site: "https://adabanaszak.com",
   base: "/paulinawlostowska-portfolio",
   vite: {
     css: {
