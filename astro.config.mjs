@@ -1,9 +1,10 @@
 import { defineConfig } from "astro/config";
+import netlify from '@astrojs/netlify/functions';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://adabanaszak.com",
-  base: "/paulinawlostowska-portfolio",
+  output: 'server',
+  adapter: netlify(),
   vite: {
     css: {
       preprocessorOptions: {
