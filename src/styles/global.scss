@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "Di Grotesk";
-  src: url("/fonts/DiGrotesk/DiGrotesk-Regular.woff") format("woff");
+  src: url("../fonts/DiGrotesk/DiGrotesk-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -13,20 +13,36 @@
 
 @font-face {
   font-family: "Di Grotesk";
-  src: url("/fonts/DiGrotesk/DiGrotesk-Italic.woff") format("woff");
+  src: url("../fonts/DiGrotesk/DiGrotesk-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
 
+@font-face {
+  font-family: "Di Grotesk";
+  src: url("../fonts/DiGrotesk/DiGrotesk-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Di Grotesk";
+  src: url("../fonts/DiGrotesk/DiGrotesk-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 body {
   font-family: "Di Grotesk", sans-serif;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 h1, h2, h3, h4, h5 {
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1em;
 }
 
