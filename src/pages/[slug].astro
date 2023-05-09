@@ -1,0 +1,90 @@
+---
+import { marked } from "marked";
+import { contentfulClient } from "../lib/contentful";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.scss";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<any>({
+    content_type: "projectPage",
+  });
+
+  const projects: any[] = entries.items;
+
+  return projects.map((project, index) => {
+    return {
+      params: {
+        slug: project.fields.slug,
+      },
+      props: {
+        project: project.fields,
+        parsedDescription: marked.parse(project.fields.description),
+      },
+    };
+  });
+}
+
+const { project, parsedDescription } = Astro.props;
+
+const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
+---
+
+<Layout title={`${project.name} - Paulina Włostowska`}>
+  <main class="container">
+    <div class="project">
+      <div class="project__gallery">
+        {
+          project.images.map((image) => (
+            <img
+              src={image.fields.file.url}
+              alt={image.fields.title}
+              loading="lazy"
+            />
+          ))
+        }
+      </div>
+
+      <div class="project__details">
+        <h1>{project.name}</h1>
+        <p>{project.location}</p>
+        {
+          project.startDate && (
+            <time datetime={project.startDate}>
+              {formatDate(project.startDate)}
+            </time>
+          )
+        }
+        {
+          project.endDate && (
+            <time datetime={project.endDate}>
+              &nbsp;–&nbsp;{formatDate(project.endDate)}
+            </time>
+          )
+        }
+      </div>
+
+      <div class="project__description" set:html={parsedDescription} />
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .project {
+    font-size: 1.5rem;
+    padding-bottom: 6rem;
+
+    &__gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 1.5rem;
+    }
+
+    &__details {
+      padding: 4rem 0 2rem;
+    }
+
+    &__description {
+      max-width: 50ch;
+    }
+  }
+</style>

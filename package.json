@@ -11,8 +11,10 @@
 	},
 	"dependencies": {
 		"@contentful/rich-text-html-renderer": "^16.0.2",
+		"@types/marked": "^4.3.0",
 		"astro": "^2.0.14",
 		"contentful": "^9.3.3",
+		"marked": "^5.0.1",
 		"sass": "^1.60.0"
 	}
 }

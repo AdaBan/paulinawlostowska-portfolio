@@ -1,4 +1,7 @@
 ---
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1, -1); // remove the first "/"
+
 ---
 
 <nav class="navbar">
@@ -9,10 +12,21 @@
       </a>
       <ul class="navbar__links">
         <li class="navbar__link-wrapper">
-          <a class="navbar__link -is-active" href="/works/"> Works</a>
-        </li>
-        <li class="navbar__link-wrapper">
-          <a class="navbar__link" href="/works/">About</a>
+          <a class="navbar__link" href="/works/">Works</a>
+          <ul class="navbar__child-links">
+            <li class="navbar__link-wrapper">
+              <a class="navbar__link" href="/exhibitions/">Exhibitions</a>
+            </li>
+            <li class="navbar__link-wrapper">
+              <a class="navbar__link" href="/zines/">Zines</a>
+            </li>
+            <li class="navbar__link-wrapper">
+              <a class="navbar__link" href="/murals/">Murals</a>
+            </li>
+            <li class="navbar__link-wrapper">
+              <a class="navbar__link" href="/about/">About</a>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -21,8 +35,10 @@
 
 <style lang="scss">
   .navbar {
+    position: relative;
+    z-index: 2;
     font-size: 3vw;
-    padding: 0.5em 0 1em;
+    padding: 0.5em 0 1.5em;
 
     &__inner {
       display: flex;
@@ -35,8 +51,32 @@
       gap: 1.5em;
     }
 
+    &__link-wrapper {
+      &:hover {
+        > .navbar__child-links {
+          opacity: 1;
+          visibility: visible;
+          z-index: 1;
+        }
+      }
+    }
+
+    &__child-links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      visibility: hidden;
+      opacity: 0;
+      z-index: -1;
+    }
+
     &__link {
-      border-bottom: .1em solid transparent;
+      border-bottom: 0.1em solid transparent;
 
       &.-is-active {
         border-color: currentColor;
