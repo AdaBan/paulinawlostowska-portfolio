@@ -1,31 +1,69 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1, -1); // remove the first "/"
 
+const links = [
+  {
+    url: "/works/",
+    label: "Works",
+  },
+  {
+    url: "/exhibitions/",
+    label: "Exhibitions",
+  },
+  {
+    url: "/zines/",
+    label: "Zines",
+  },
+  {
+    url: "/murals/",
+    label: "Murals",
+  },
+  {
+    url: "/about/",
+    label: "About",
+  },
+];
+
+const currentLink = links.find((link) => link.url === pathname);
+const subLinks = currentLink
+  ? links.filter((link) => link.url !== currentLink.url)
+  : links.slice(1);
 ---
 
 <nav class="navbar">
   <div class="container">
     <div class="navbar__inner">
-      <a class="navbar__logo" href="/works/">
+      <a class="navbar__logo" href="/">
         <h1>Paulina Włostowska</h1>
       </a>
       <ul class="navbar__links">
         <li class="navbar__link-wrapper">
-          <a class="navbar__link" href="/works/">Works</a>
+          {
+            currentLink && (
+              <a class="navbar__link" href={currentLink.url}>
+                {currentLink.label}
+              </a>
+            )
+          }
+
+          {
+            !currentLink && (
+              <a class="navbar__link" href={links[0].url}>
+                {links[0].label}
+              </a>
+            )
+          }
+
           <ul class="navbar__child-links">
-            <li class="navbar__link-wrapper">
-              <a class="navbar__link" href="/exhibitions/">Exhibitions</a>
-            </li>
-            <li class="navbar__link-wrapper">
-              <a class="navbar__link" href="/zines/">Zines</a>
-            </li>
-            <li class="navbar__link-wrapper">
-              <a class="navbar__link" href="/murals/">Murals</a>
-            </li>
-            <li class="navbar__link-wrapper">
-              <a class="navbar__link" href="/about/">About</a>
-            </li>
+            {
+              subLinks.map((link) => (
+                <li class="navbar__link-wrapper">
+                  <a class="navbar__link" href={link.url}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </li>
       </ul>
@@ -75,16 +113,11 @@ const currentPath = pathname.slice(1, -1); // remove the first "/"
       z-index: -1;
     }
 
+    &__logo,
     &__link {
-      border-bottom: 0.1em solid transparent;
-
-      &.-is-active {
-        border-color: currentColor;
-      }
-
       @media (hover: hover) {
         &:hover {
-          color: $accent-color;
+          text-decoration: line-through $accent-color;
         }
       }
     }
