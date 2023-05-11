@@ -39,6 +39,8 @@
 body {
   font-family: "Di Grotesk", sans-serif;
   font-weight: 700;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 h1, h2, h3, h4, h5 {

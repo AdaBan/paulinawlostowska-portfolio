@@ -1,26 +1,41 @@
 ---
-import Navigation from '../components/Navigation.astro';
+import { contentfulClient } from "../lib/contentful";
+import Navigation from "../components/Navigation.astro";
 
 export interface Props {
-	title: string;
+  title: string;
 }
+
+const entries = await contentfulClient.getEntries<any>({
+  content_type: "colors",
+  limit: 1,
+});
+
+const colors: any = entries.items[0].fields;
+const { accentColor, backgroundColor, textColor } = colors;
 
 const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<header>
-			<Navigation />
-		</header>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body
+    style={{
+      "--accent-color": accentColor || 'red',
+      "--background-color": backgroundColor || 'white',
+      "--text-color": textColor || 'black',
+    }}
+  >
+    <header>
+      <Navigation />
+    </header>
+    <slot />
+  </body>
 </html>
