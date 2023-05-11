@@ -52,14 +52,14 @@ const { work, workIndex, worksNumber } = Astro.props;
     <div class="work">
       <img
         class="work__image"
-        src={`${work.image.fields.file.url}?w=1200&q=72`}
+        src={`${work?.image?.fields.file.url}?w=1200&q=72`}
       />
       <div class="work__caption">
         <p>{ workIndex } / { worksNumber }</p>
         
         { workIndex > 1  &&  <a href={ `/works/${workIndex - 1}`}>Prev / </a>}
         { workIndex < worksNumber && <a href={ `/works/${workIndex + 1}`}>Next</a> }
-        <figcaption>{work.title}</figcaption>
+        <figcaption>{work?.title}</figcaption>
       </div>
     </div>
   </main>
