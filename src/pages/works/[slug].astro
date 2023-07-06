@@ -52,7 +52,7 @@ const { work, workIndex, worksNumber } = Astro.props;
     <div class="work">
       <img
         class="work__image"
-        src={`${work?.image?.fields.file.url}?w=1200&q=72`}
+        src={`${work?.image?.fields.file.url}?w=1200&q=72&fm=webp`}
       />
       <div class="work__caption">
         <p>{ workIndex } / { worksNumber }</p>

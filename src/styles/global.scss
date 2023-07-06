@@ -39,13 +39,15 @@
 body {
   font-family: "Di Grotesk", sans-serif;
   font-weight: 700;
-  background: var(--background-color);
+  background: #fff;
   color: var(--text-color);
 }
 
 h1, h2, h3, h4, h5 {
-  font-weight: inherit;
+  font-weight: 700;
   font-size: 1em;
+  line-height: 1.1;
+  opacity: $bold-text-opacity;
 }
 
 a[class] {
