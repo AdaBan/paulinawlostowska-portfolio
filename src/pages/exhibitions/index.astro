@@ -10,6 +10,8 @@ const entries = await contentfulClient.getEntries<any>({
 });
 
 const projects: any[] = entries.items;
+
+const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
 ---
 
 <Layout title={`Exhibitions - Paulina Włostowska`}>
@@ -18,11 +20,31 @@ const projects: any[] = entries.items;
       {
         projects.map((project) => (
           <li class="projects-list__item">
-            <a
-              class="projects-list__link"
-              href={`/${project.fields.slug}/`}
-            >
-              {project.fields.name}
+            <a class="projects-list__link" href={`/${project.fields.slug}/`}>
+              <span class="projects-list__name">
+                {project.fields.name}
+
+                <img
+                  class="projects-list__image"
+                  src={`${project.fields.images[0].fields.file.url}?w=563&q=72&fm=webp`}
+                  alt={project.fields.images[0].fields.title}
+                  loading="lazy"
+                />
+              </span>
+
+              <div class="projects-list__details">
+                <p>{project.fields.location}</p>
+                {project.fields.startDate && (
+                  <time datetime={project.fields.startDate}>
+                    {formatDate(project.fields.startDate)}
+                  </time>
+                )}
+                {project.fields.endDate && (
+                  <time datetime={project.fields.endDate}>
+                    &nbsp;–&nbsp;{formatDate(project.fields.endDate)}
+                  </time>
+                )}
+              </div>
             </a>
           </li>
         ))
@@ -33,18 +55,65 @@ const projects: any[] = entries.items;
 
 <style lang="scss">
   .projects-list {
+    $block: &;
+
     display: flex;
     flex-direction: column;
-    font-size: 2.5vw;
+    font-size: 3rem;
+    line-height: 1.1;
+
+    &__item {
+      position: relative;
+
+      &:hover {
+        #{$block} {
+          &__image {
+            opacity: 1;
+            visibility: visible;
+          }
+
+          &__details {
+            max-height: 6rem;
+            opacity: 1;
+          }
+        }
+      }
+    }
 
     &__link {
       display: block;
-      padding: 0.6em 0 0.5em;
-      border-bottom: 0.08em solid;
+      padding: 0.5em 0;
+      border-bottom: 2px solid var(--text-color);
 
       &:hover {
         color: var(--accent-color);
       }
+    }
+
+    &__name {
+      position: relative;
+    }
+
+    &__details {
+      padding-top: 1rem;
+      font-weight: 400;
+      font-size: 1.25rem;
+      line-height: 1.6;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.4s ease-in-out;
+      color: var(--text-color);
+    }
+
+    &__image {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 3rem);
+      transform: translateY(-50%);
+      width: 18rem;
+      opacity: 0;
+      visibility: hidden;
     }
   }
 </style>
