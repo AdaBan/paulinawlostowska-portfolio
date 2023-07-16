@@ -1,5 +1,6 @@
 ---
 import { contentfulClient } from "../../lib/contentful";
+import slugify from "slugify";
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.scss";
 
@@ -20,7 +21,7 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
       {
         projects.map((project) => (
           <li class="projects-list__item">
-            <a class="projects-list__link" href={`/${project.fields.slug}/`}>
+            <a class="projects-list__link" href={`/${slugify(project.fields.name.toLowerCase())}/`}>
               <span class="projects-list__name">
                 {project.fields.name}
 

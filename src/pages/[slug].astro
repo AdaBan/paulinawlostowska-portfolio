@@ -1,5 +1,6 @@
 ---
 import { marked } from "marked";
+import slugify from "slugify";
 import { contentfulClient } from "../lib/contentful";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.scss";
@@ -14,11 +15,11 @@ export async function getStaticPaths() {
   return projects.map((project, index) => {
     return {
       params: {
-        slug: project.fields.slug,
+        slug: project.fields?.name ? slugify(project.fields.name.toLowerCase()) : '',
       },
       props: {
         project: project.fields,
-        parsedDescription: marked.parse(project.fields.description),
+        parsedDescription: project.fields.description ? marked.parse(project.fields.description) : '',
       },
     };
   });
