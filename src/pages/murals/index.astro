@@ -2,6 +2,7 @@
 import { contentfulClient } from "../../lib/contentful";
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.scss";
+import ProjectsList from "../../components/ProjectsList.astro";
 
 const entries = await contentfulClient.getEntries<any>({
   content_type: "projectPage",
@@ -14,20 +15,7 @@ const projects: any[] = entries.items;
 
 <Layout title={`Murals - Paulina Włostowska`}>
   <main class="container">
-    <ul class="projects-list">
-      {
-        projects.map((project) => (
-          <li class="projects-list__item">
-            <a
-              class="projects-list__link"
-              href={`/${project.fields.slug}/`}
-            >
-              {project.fields.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <ProjectsList projects={projects} />
   </main>
 </Layout>
 

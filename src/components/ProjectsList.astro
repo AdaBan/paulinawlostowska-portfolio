@@ -1,0 +1,115 @@
+---
+import slugify from "slugify";
+
+const { projects } = Astro.props;
+
+const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
+---
+
+<ul class="projects-list">
+    {
+      projects.map((project) => (
+        <li class="projects-list__item">
+          <a class="projects-list__link" href={`/${slugify(project.fields.name.toLowerCase())}/`}>
+            <span class="projects-list__name">
+              {project.fields.name}
+
+              <img
+                class="projects-list__image"
+                src={`${project.fields.images[0].fields.file.url}?w=563&q=72&fm=webp`}
+                alt={project.fields.images[0].fields.title}
+                loading="lazy"
+              />
+            </span>
+
+            <div class="projects-list__details">
+              <p>{project.fields.location}</p>
+              {project.fields.startDate && (
+                <time datetime={project.fields.startDate}>
+                  {formatDate(project.fields.startDate)}
+                </time>
+              )}
+              {project.fields.endDate && (
+                <time datetime={project.fields.endDate}>
+                  &nbsp;–&nbsp;{formatDate(project.fields.endDate)}
+                </time>
+              )}
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <style lang="scss">
+    .projects-list {
+      $block: &;
+  
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 5rem;
+      overflow: hidden;
+      font-size: 3rem;
+      line-height: 1.1;
+  
+  
+      &__item {
+        position: relative;
+  
+        &:hover {
+          #{$block} {
+            &__image {
+              opacity: 1;
+              visibility: visible;
+            }
+  
+            &__details {
+              max-height: 8rem;
+              opacity: 1;
+            }
+          }
+        }
+      }
+  
+      &__link {
+        display: block;
+        padding: 0.5em 0;
+        border-bottom: 2px solid var(--text-color);
+  
+        &:hover {
+          color: var(--accent-color);
+        }
+      }
+  
+      &__name {
+        position: relative;
+      }
+  
+      &__details {
+        font-weight: 400;
+        font-size: 1.125rem;
+        line-height: 1.6;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.5s cubic-bezier(0.45, 0, 0.55, 1);
+        color: var(--text-color);
+
+        > *:first-child {
+            padding-top: 2rem;
+        }
+      }
+  
+      &__image {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: calc(100% + 3rem);
+        transform: translateY(-50%);
+        width: 18rem;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  </style>
+  

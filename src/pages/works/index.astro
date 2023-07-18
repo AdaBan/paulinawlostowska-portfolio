@@ -1,6 +1,5 @@
 ---
 import { contentfulClient } from "../../lib/contentful";
-import { Image } from "@unpic/astro";
 
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.scss";
@@ -42,8 +41,6 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
     };
   }
 );
-
-console.log(works[0].thumbnail.fields.file.details.image.width);
 ---
 
 <Layout title="Works - Paulina Włostowska">
