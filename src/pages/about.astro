@@ -1,13 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import '../styles/global.scss';
+import { contentfulClient } from "../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.scss";
+
+const entries = await contentfulClient.getEntries<any>({
+  content_type: "aboutPage",
+});
+
+const data: any = entries.items[0];
+const text = documentToHtmlString(data.fields.text);
 ---
 
 <Layout title="About - Paulina Włostowska">
-	<main>
-		<div class="container">
-		</div>
-	</main>
+  <main>
+    <div class="container">
+      <div class="rich-text" set:html={text} />
+    </div>
+  </main>
 </Layout>
 
 <style lang="scss">

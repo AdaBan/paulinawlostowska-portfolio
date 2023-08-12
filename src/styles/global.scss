@@ -19,7 +19,6 @@
   font-display: swap;
 }
 
-
 @font-face {
   font-family: "Di Grotesk";
   src: url("../fonts/DiGrotesk/DiGrotesk-Bold.woff2") format("woff2");
@@ -43,7 +42,11 @@ body {
   color: var(--text-color);
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 700;
   font-size: 1em;
   line-height: 1.1;
@@ -54,7 +57,8 @@ a[class] {
   color: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -64,7 +68,32 @@ img {
   max-width: 100%;
 }
 
-
 p:not([class]) {
   margin-bottom: 1em;
+}
+
+.rich-text {
+  max-width: 60ch;
+  font-size: 1.25rem;
+  font-weight: 400;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  ul li,
+  ol li {
+    margin-bottom: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+  }
 }

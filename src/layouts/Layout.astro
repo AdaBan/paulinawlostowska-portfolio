@@ -36,6 +36,15 @@ const { title } = Astro.props;
     <header>
       <Navigation />
     </header>
-    <slot />
+    <main class="main">
+      <slot />
+    </main>
+
   </body>
 </html>
+
+<style lang="scss">
+  .main {
+    padding-bottom: 7.5rem;
+  }
+</style>
