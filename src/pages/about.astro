@@ -15,11 +15,15 @@ const text = documentToHtmlString(data.fields.text);
 <Layout title="About - Paulina Włostowska">
   <main>
     <div class="container">
-      <div class="rich-text" set:html={text} />
+      <div class="about">
+        <div class="rich-text" set:html={text} />
+      </div>
     </div>
   </main>
 </Layout>
 
 <style lang="scss">
-
+  .about {
+    padding-bottom: 7.5rem;
+  }
 </style>
