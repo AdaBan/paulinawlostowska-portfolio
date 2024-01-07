@@ -3,14 +3,14 @@ import { contentfulClient } from "../../lib/contentful";
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/global.scss";
 import ProjectsList from "../../components/ProjectsList.astro";
+import { filterByCategory } from "../../helpers/filterByCategory";
 
 const entries = await contentfulClient.getEntries<any>({
   content_type: "projectPage",
-  "fields.type": "zine",
   order: "-fields.startDate",
 });
 
-const projects: any[] = entries.items;
+const projects: any[] = filterByCategory(entries, "publication");
 ---
 
 <Layout title={`Zines - Paulina Włostowska`}>

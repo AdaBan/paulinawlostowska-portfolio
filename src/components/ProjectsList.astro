@@ -4,11 +4,14 @@ import slugify from "slugify";
 const { projects } = Astro.props;
 
 const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
+
+console.log(projects)
 ---
 
 <ul class="projects-list">
     {
       projects.map((project) => (
+        project?.fields?.name &&
         <li class="projects-list__item">
           <a class="projects-list__link" href={`/${slugify(project.fields.name.toLowerCase())}/`}>
             <span class="projects-list__name">
