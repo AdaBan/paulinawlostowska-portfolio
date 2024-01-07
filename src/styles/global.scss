@@ -80,6 +80,7 @@ p:not([class]) {
   a {
     color: inherit;
     text-decoration: underline;
+    font-weight: 700;
   }
 
   ul li,
@@ -95,5 +96,15 @@ p:not([class]) {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 2.5rem 0 1rem;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 700;
+
+  &:hover {
+    color: var(--accent-color);
   }
 }
