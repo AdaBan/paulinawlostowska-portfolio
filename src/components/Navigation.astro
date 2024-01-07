@@ -36,7 +36,25 @@ const subLinks = currentLink
       <a class="navbar__logo" href="/">
         <h1>Paulina Włostowska</h1>
       </a>
-      <ul class="navbar__links">
+      <ul class="navbar__links navbar__links--mobile">
+        {
+          links.map((link) => (
+            <li class="navbar__link-wrapper">
+              <a
+                class="navbar__link"
+                style={{
+                  textDecoration:
+                    link.url === currentLink?.url ? "underline" : "none",
+                }}
+                href={link.url}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="navbar__links navbar__links--desktop">
         <li class="navbar__link-wrapper">
           {
             currentLink && (
@@ -75,18 +93,43 @@ const subLinks = currentLink
   .navbar {
     position: relative;
     z-index: 2;
-    font-size: 3vw;
-    padding: 0.5em 0 1.5em;
+    font-size: 4.25vw;
+    padding: 1em 0 1.5em;
+
+    @media (min-width: 768px) {
+      font-size: min(2.7vw, 4rem);
+    }
 
     &__inner {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.75em;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2em;
+      }
     }
 
     &__links {
       display: flex;
-      gap: 1.5em;
+      gap: 0.5em;
+
+      &--mobile {
+        gap: 0.75em;
+
+        @media (hover: hover) {
+          display: none;
+        }
+      }
+
+      &--desktop {
+        @media (hover: none) {
+          display: none;
+        }
+      }
     }
 
     &__link-wrapper {
@@ -118,8 +161,14 @@ const subLinks = currentLink
       @media (hover: hover) {
         &:hover {
           text-decoration: line-through wavy var(--accent-color);
-          text-decoration-thickness: .2em;
+          text-decoration-thickness: 0.2em;
         }
+      }
+    }
+
+    &__link {
+      &--active {
+        color: red;
       }
     }
   }

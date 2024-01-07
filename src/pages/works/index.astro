@@ -29,9 +29,9 @@ const entries = await contentfulClient.getEntries<WorksPage>({
 
 const works: SingleWork[] = entries.items[0].fields.works.map(
   (work: SingleWorkObject) => {
-    const thumbnail = work.fields.thumbnail
+    const thumbnail = work?.fields?.thumbnail
       ? work.fields.thumbnail
-      : work.fields.image;
+      : work?.fields?.image;
     return {
       ...work.fields,
       thumbnail: thumbnail,
@@ -56,8 +56,8 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
             >
               <img
                 src={`${work.thumbnail.fields.file.url}?h=${400}&q=72&fm=webp`}
-                width={200 * work.thumbnailAspectRatio}
-                height={200}
+                width={280 * work.thumbnailAspectRatio}
+                height={280}
                 alt={work.thumbnail.fields.title}
                 loading="lazy"
               />
@@ -72,8 +72,14 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
 <style lang="scss">
   .works-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
   }
 
   .work {
@@ -86,8 +92,13 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
       position: relative;
       z-index: 1;
       display: block;
-      height: max(200px, 15vw);
+      height: max(280px, 15vw);
+      max-width: 100%;
       overflow: hidden;
+
+      @media (min-width: 768px) {
+        height: max(200px, 15vw);
+      }
     }
 
     img {
@@ -96,7 +107,7 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
       object-fit: cover;
       object-position: center;
       transform-origin: center;
-      transition: .5s ease;
+      transition: 0.5s ease;
     }
 
     @media (hover: hover) {
