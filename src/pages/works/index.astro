@@ -29,16 +29,20 @@ const entries = await contentfulClient.getEntries<WorksPage>({
 
 const works: SingleWork[] = entries.items[0].fields.works.map(
   (work: SingleWorkObject) => {
-    const thumbnail = work?.fields?.thumbnail
-      ? work.fields.thumbnail
-      : work?.fields?.image;
-    return {
-      ...work.fields,
-      thumbnail: thumbnail,
-      thumbnailAspectRatio:
-        thumbnail.fields.file.details.image.width /
-        thumbnail.fields.file.details.image.height,
-    };
+    if (work && work.fields) {
+      const thumbnail = work?.fields?.thumbnail
+        ? work.fields.thumbnail
+        : work?.fields?.image;
+      return {
+        ...work.fields,
+        thumbnail: thumbnail,
+        thumbnailAspectRatio:
+          thumbnail.fields.file.details.image.width /
+          thumbnail.fields.file.details.image.height,
+      };
+    } else {
+      return null;
+    }
   }
 );
 ---
@@ -47,23 +51,29 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
   <main class="container">
     <ul class="works-grid">
       {
-        works.map((work, index) => (
-          <li class="work">
-            <a
-              class="work__link"
-              href={`/works/${index + 1}`}
-              style={`aspect-ratio: ${work.thumbnail.fields.file.details.image.width} / ${work.thumbnail.fields.file.details.image.height}`}
-            >
-              <img
-                src={`${work.thumbnail.fields.file.url}?h=${400}&q=72&fm=webp`}
-                width={280 * work.thumbnailAspectRatio}
-                height={280}
-                alt={work.thumbnail.fields.title}
-                loading="lazy"
-              />
-            </a>
-          </li>
-        ))
+        works.map(
+          (work, index) =>
+            work &&
+            work.thumbnail && (
+              <li class="work">
+                <a
+                  class="work__link"
+                  href={`/works/${index + 1}`}
+                  style={`aspect-ratio: ${work.thumbnail.fields.file.details.image.width} / ${work.thumbnail.fields.file.details.image.height}`}
+                >
+                  <img
+                    src={`${
+                      work.thumbnail.fields.file.url
+                    }?h=${400}&q=72&fm=webp`}
+                    width={280 * work.thumbnailAspectRatio}
+                    height={280}
+                    alt={work.thumbnail.fields.title}
+                    loading="lazy"
+                  />
+                </a>
+              </li>
+            )
+        )
       }
     </ul>
   </main>
