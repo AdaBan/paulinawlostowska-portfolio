@@ -1,4 +1,5 @@
 ---
+// import { ViewTransitions } from 'astro:transitions';
 import { contentfulClient } from "../../lib/contentful";
 
 import Layout from "../../layouts/Layout.astro";
@@ -47,8 +48,8 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
 );
 ---
 
-<Layout title="Works - Paulina Włostowska">
-  <main class="container">
+<Layout title="Works - Paulina Włostowska" transition={true}>
+  <div class="container">
     <ul class="works-grid">
       {
         works.map(
@@ -76,7 +77,8 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
         )
       }
     </ul>
-  </main>
+    <!-- <ViewTransitions /> -->
+  </div>
 </Layout>
 
 <style lang="scss">
@@ -102,12 +104,13 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
       position: relative;
       z-index: 1;
       display: block;
-      height: max(280px, 15vw);
-      max-width: 100%;
+      // height: max(280px, 15vw);
+      width: 100%;
       overflow: hidden;
 
-      @media (min-width: 768px) {
+      @media (min-width: 560px) {
         height: max(200px, 15vw);
+        width: auto;
       }
     }
 
