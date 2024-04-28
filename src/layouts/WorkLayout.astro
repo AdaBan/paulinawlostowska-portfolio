@@ -1,5 +1,4 @@
 ---
-// import { ViewTransitions } from 'astro:transitions';
 import { contentfulClient } from "../lib/contentful";
 import Navigation from "../components/Navigation.astro";
 
@@ -37,8 +36,10 @@ const { title, transition } = Astro.props;
     }}
   >
     <div class="layout">
-      <header class="layout__header">
-        <Navigation />
+      <header class="layout__header / container">
+        <a href="/works">
+            Back to all works
+        </a>
       </header>
       <div class="layout__main / container">
         <slot />
@@ -52,6 +53,12 @@ const { title, transition } = Astro.props;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    &__header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem 0 1.5rem;
+    }
 
     &__main {
       flex-grow: 1;

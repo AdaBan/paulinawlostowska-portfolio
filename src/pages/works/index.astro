@@ -37,8 +37,8 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
         ...work.fields,
         thumbnail: thumbnail,
         thumbnailAspectRatio:
-          thumbnail.fields.file.details.image.width /
-          thumbnail.fields.file.details.image.height,
+          thumbnail.fields.file.details.image.height /
+          thumbnail.fields.file.details.image.width,
       };
     } else {
       return null;
@@ -48,47 +48,58 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
 ---
 
 <Layout title="Works - Paulina Włostowska" transition={true}>
-  <div class="container">
-    <ul class="works-grid">
-      {
-        works.map(
-          (work, index) =>
-            work &&
-            work.thumbnail && (
-              <li class="work">
-                <a
-                  class="work__link"
-                  href={`/works/${index + 1}`}
-                  style={`aspect-ratio: ${work.thumbnail.fields.file.details.image.width} / ${work.thumbnail.fields.file.details.image.height}`}
-                >
-                  <img
-                    src={`${
-                      work.thumbnail.fields.file.url
-                    }?h=${400}&q=72&fm=webp`}
-                    width={280 * work.thumbnailAspectRatio}
-                    height={280}
-                    alt={work.thumbnail.fields.title}
-                    loading="lazy"
-                  />
-                </a>
-              </li>
-            )
-        )
-      }
-    </ul>
-  </div>
+  <ul class="works-grid">
+    {
+      works.map(
+        (work, index) =>
+          work &&
+          work.thumbnail && (
+            <li class="work">
+              <a
+                class="work__link"
+                href={`/works/${index + 1}`}
+                style={`aspect-ratio: ${work.thumbnail.fields.file.details.image.width} / ${work.thumbnail.fields.file.details.image.height}`}
+              >
+                <img
+                  src={`${work.thumbnail.fields.file.url}?h=${900}&q=72&fm=webp`}
+                  width={450}
+                  height={450 * work.thumbnailAspectRatio}
+                  alt={work.thumbnail.fields.title}
+                  loading="lazy"
+                />
+              </a>
+            </li>
+          )
+      )
+    }
+  </ul>
 </Layout>
 
 <style lang="scss">
   .works-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: grid;
+    grid-gap: 1rem;
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 2rem;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 1rem;
+
+    @media (min-width: 450px) {
+      // flex-direction: row;
+      // flex-wrap: wrap;
+      // gap: 2rem;
+
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 1.5rem;
+      grid-row-gap: 3rem;
+    }
+
+    @media (min-width: 1200px) {
+      // flex-direction: row;
+      // flex-wrap: wrap;
+      // gap: 2rem;
+
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 
@@ -107,8 +118,10 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
       overflow: hidden;
 
       @media (min-width: 560px) {
-        height: max(200px, 15vw);
-        width: auto;
+        // height: max(200px, 15vw);
+        // width: auto;
+
+        width: 100%;
       }
     }
 
@@ -124,7 +137,7 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
     @media (hover: hover) {
       &:hover {
         img {
-          transform: scale(1.1);
+          transform: scale(1.025);
         }
       }
     }
