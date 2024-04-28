@@ -1,5 +1,4 @@
 ---
-// import { ViewTransitions } from 'astro:transitions';
 import { contentfulClient } from "../../lib/contentful";
 
 import Layout from "../../layouts/Layout.astro";
@@ -77,7 +76,6 @@ const works: SingleWork[] = entries.items[0].fields.works.map(
         )
       }
     </ul>
-    <!-- <ViewTransitions /> -->
   </div>
 </Layout>
 
