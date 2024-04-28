@@ -10,11 +10,9 @@ const entries = await contentfulClient.getEntries<any>({
   order: "-fields.startDate",
 });
 
-const projects: any[] = entries.items ||  filterByCategory(entries, "textile");
+const projects: any[] = entries.items || filterByCategory(entries, "textile");
 ---
 
 <Layout title={`Textiles - Paulina Włostowska`}>
-  <main class="container">
-    <ProjectsList projects={projects} />
-  </main>
+  <ProjectsList projects={projects} />
 </Layout>

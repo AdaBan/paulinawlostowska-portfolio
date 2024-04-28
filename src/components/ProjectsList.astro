@@ -23,7 +23,7 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
               />
             </span>
 
-            <div class="projects-list__details">
+            {/* <div class="projects-list__details">
               <p>{project.fields.location}</p>
               {project.fields.startDate && (
                 <time datetime={project.fields.startDate}>
@@ -35,7 +35,7 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
                   &nbsp;–&nbsp;{formatDate(project.fields.endDate)}
                 </time>
               )}
-            </div>
+            </div> */}
           </a>
         </li>
       ))
@@ -52,7 +52,7 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
       overflow: hidden;
       font-size: min(4.25vw, 3rem);
       line-height: 1.1;
-      padding-bottom: 7.5rem;
+      padding-bottom: 1rem;
   
   
       &__item {
@@ -65,10 +65,10 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
               visibility: visible;
             }
   
-            &__details {
-              max-height: 8rem;
-              opacity: 1;
-            }
+            // &__details {
+            //   max-height: 8rem;
+            //   opacity: 1;
+            // }
           }
         }
       }
@@ -89,20 +89,20 @@ const formatDate = (date: string) => new Date(date).toLocaleDateString("en-US");
         position: relative;
       }
   
-      &__details {
-        font-weight: 400;
-        font-size: 1.125rem;
-        line-height: 1.6;
-        opacity: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: 0.5s cubic-bezier(0.45, 0, 0.55, 1);
-        color: var(--text-color);
+      // &__details {
+      //   font-weight: 400;
+      //   font-size: 1.125rem;
+      //   line-height: 1.6;
+      //   opacity: 0;
+      //   max-height: 0;
+      //   overflow: hidden;
+      //   transition: 0.5s cubic-bezier(0.45, 0, 0.55, 1);
+      //   color: var(--text-color);
 
-        > *:first-child {
-            padding-top: 2rem;
-        }
-      }
+      //   > *:first-child {
+      //       padding-top: 2rem;
+      //   }
+      // }
   
       &__image {
         position: absolute;
