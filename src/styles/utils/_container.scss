@@ -1,7 +1,8 @@
 %container {
     max-width: 100%;
     position: relative;
-    margin-inline: $container-gutter;
+    padding: 0 $container-gutter;
+    overflow-x: clip;
 }
 
 .container {
